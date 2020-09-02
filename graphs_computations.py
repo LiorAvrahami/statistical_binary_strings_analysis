@@ -4,6 +4,7 @@ import math
 from typing import List
 import networkx
 from itertools import count
+import colors
 
 class VictoryGraph(dict):
 
@@ -19,12 +20,18 @@ class VictoryGraph(dict):
             hierarchy -= set(ret)
         return ret
 
-    def plot(self,hierarchies:List[set]=None):
+    def plot(self,hierarchies:List[set]=None,hierarchy_values:List[float]=None):
         networkx_graph = self.to_networkx_graph()
 
         if hierarchies is not None:
+            colors_iter = colors.make_iter()
             hierarchies = [self.orgenise_hierarchy(h) for h in hierarchies]
-            pos = networkx.shell_layout(networkx_graph, nlist=hierarchies, rotate=math.pi/2)
+            pos = networkx.shell_layout(networkx_graph, nlist=hierarchies, rotate=math.pi/3)
+            for hei,val in zip(hierarchies,hierarchy_values):
+                radius = (pos[hei[0]][0]**2 + pos[hei[0]][1]**2)**0.5
+                ring = plt.Circle((0,0),radius,fill=False,label="{:.2f}".format(val),linestyle="--",alpha=0.3,color=next(colors_iter))
+                plt.gca().add_patch(ring)
+            plt.legend()
         else:
             pos = networkx.kamada_kawai_layout(networkx_graph)
 

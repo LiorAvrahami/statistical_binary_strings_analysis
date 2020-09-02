@@ -62,7 +62,9 @@ def get_target_str_hierarchy(targets_histograms_dict, targets_histograms_dict_bi
         hist, error_arr = targets_histograms_dict[target_str],targets_histograms_dict_bin_errors[target_str]
         mean, mean_error = get_com_with_error(hist, error_arr)
         segments_dict[target_str] = (mean - mean_error, mean + mean_error)
-    return split_into_hierarchies(segments_dict)
+    hierarchies = split_into_hierarchies(segments_dict)
+    hierarchy_values = [np.mean(segments_dict[hei[0]]) for hei in hierarchies]
+    return hierarchies,hierarchy_values
 
 
 def split_into_hierarchies(segments_dict):
@@ -101,4 +103,3 @@ if __name__ == "__main__":
     plot_single_target_distribution(*hist_dat_111,label="111")
 
     plt.legend()
-    # hierarchies = get_target_str_hierarchy(set_operations.get_all_n_digit_strings(3), 0.01)

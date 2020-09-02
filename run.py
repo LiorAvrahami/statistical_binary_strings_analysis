@@ -35,8 +35,8 @@ for target in histograms_to_plot:
     plt.legend()
 plt.figure()
 
-hierarchies = single_target_distributions.get_target_str_hierarchy(single_player_distributions,single_player_distributions_errors)
+hierarchies,hierarchy_values = single_target_distributions.get_target_str_hierarchy(single_player_distributions,single_player_distributions_errors)
 victory_graph = game_statistics.get_victory_graph()
 victory_graph.print()
-victory_graph.plot(hierarchies)
-# print("number of loops is ",victory_graph.get_number_of_loops())
+victory_graph.plot(hierarchies,hierarchy_values)
+print("number of loops is ",victory_graph.get_number_of_loops())
