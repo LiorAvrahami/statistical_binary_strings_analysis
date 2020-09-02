@@ -46,14 +46,14 @@ def get_targets_histograms_dict_with_errors(target_arr,bin_error):
         targets_histograms_dict[target_str],targets_histograms_dict_bin_errors[target_str] = get_single_target_distribution(target_str,bin_error)
     return targets_histograms_dict,targets_histograms_dict_bin_errors
 
-def plot_single_target_distribution(hist, error_arr, color=None, axes=None):
+def plot_single_target_distribution(hist, error_arr, color=None, axes=None,label=None):
     if axes is None:
         axes = plt.gca()
     if color is None:
         color = next(colors)
-    axes.bar(range(len(hist)), hist, width=1, color=color)
+    axes.bar(range(len(hist)), hist, width=1, color=color,label=label)
     axes.errorbar(range(len(hist)), hist, error_arr / 2, fmt="none", ecolor=color)
-    axes.vlines(get_com(hist), 0, max(hist), color=color)
+    axes.vlines(get_com(hist), 0, max(hist), color=color,linestyles="--")
 
 
 def get_target_str_hierarchy(targets_histograms_dict, targets_histograms_dict_bin_errors):
@@ -94,6 +94,11 @@ def get_com_with_error(P, bin_errors):
 
 
 if __name__ == "__main__":
-    plot_single_target_distribution("111", 0.01, None, None)
-    plot_single_target_distribution("011", 0.01, None, None)
+    hist_dat_011 = get_single_target_distribution("011", 0.01)
+    hist_dat_111 = get_single_target_distribution("111",0.01)
+
+    plot_single_target_distribution(*hist_dat_011, label="011")
+    plot_single_target_distribution(*hist_dat_111,label="111")
+
+    plt.legend()
     # hierarchies = get_target_str_hierarchy(set_operations.get_all_n_digit_strings(3), 0.01)

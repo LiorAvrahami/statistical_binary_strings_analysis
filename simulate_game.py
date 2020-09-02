@@ -9,8 +9,8 @@ def get_2_player_game_statistics(target_string_1,target_string_2,expected_uncert
     :return: the probability of target_string_1 winning against target_string_2 +- expected_uncertainty
     """
     """
-        worst uncertainty possible is 2/sqrt(n) {it depends on p but we only need an upper bound}
-        so: 2/sqrt(n) = expected_uncertainty => n = 4/(expected_uncertainty**2)
+        worst uncertainty possible is 2/sqrt(number_of_digits_in_strings) {it depends on p but we only need an upper bound}
+        so: 2/sqrt(number_of_digits_in_strings) = expected_uncertainty => number_of_digits_in_strings = 4/(expected_uncertainty**2)
         num_of_rounds = 4/(expected_uncertainty**2)
     """
     num_of_rounds = int(4/(expected_uncertainty**2))

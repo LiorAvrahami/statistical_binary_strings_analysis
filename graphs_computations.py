@@ -24,11 +24,11 @@ class VictoryGraph(dict):
 
         if hierarchies is not None:
             hierarchies = [self.orgenise_hierarchy(h) for h in hierarchies]
-            pos = networkx.shell_layout(networkx_graph, nlist=hierarchies, rotate=math.pi / 2)
+            pos = networkx.shell_layout(networkx_graph, nlist=hierarchies, rotate=math.pi/2)
         else:
             pos = networkx.kamada_kawai_layout(networkx_graph)
 
-        networkx.draw(networkx_graph,with_labels =True,pos=pos,node_size=600,node_color=(0.7,0.3,0.4))
+        networkx.draw(networkx_graph,with_labels =True,pos=pos,node_size=600,node_color=(0.7,0.3,0.4),arrowsize=14,font_size=10,edge_color=(0,0,0,0.35))
         plt.axis("equal")
 
     def print(self):
